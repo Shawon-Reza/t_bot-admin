@@ -23,64 +23,9 @@ export const api = axios.create({
     },
 });
 
-// Request interceptor to add the access token to the Authorization header
-axiosApi.interceptors.request.use((config) => {
-    const auth = JSON.parse(localStorage.getItem("auth"));
-
-    if (auth?.access) {
-        config.headers.Authorization = `Bearer ${auth.access}`;
-    }
-
-    return config;
-});
-
-// Response interceptor to handle token refresh on 401 errors
+// Authentication is handled by the httpOnly cookie set by the backend.
 axiosApi.interceptors.response.use(
     (response) => response,
-    async (error) => {
-        const originalRequest = error.config;
-
-        if (
-            error.response?.status === 401 &&
-            !originalRequest._retry
-        ) {
-            originalRequest._retry = true;
-
-            const auth = JSON.parse(localStorage.getItem("auth"));
-
-            if (!auth?.refresh) {
-                localStorage.removeItem("auth");
-                window.location.href = "/login";
-                return Promise.reject(error);
-            }
-
-            try {
-                const { data } = await axios.post(
-                    `${base_URL}/api/token/refresh/`,
-                    {
-                        refresh: auth.refresh,
-                    }
-                );
-
-                localStorage.setItem(
-                    "auth",
-                    JSON.stringify({
-                        ...auth,
-                        access: data.access,
-                    })
-                );
-
-                originalRequest.headers.Authorization = `Bearer ${data.access}`;
-
-                return axiosApi(originalRequest);
-            } catch (err) {
-                localStorage.removeItem("auth");
-                window.location.href = "/login";
-                return Promise.reject(err);
-            }
-        }
-
-        return Promise.reject(error);
-    }
+    (error) => Promise.reject(error)
 );
 

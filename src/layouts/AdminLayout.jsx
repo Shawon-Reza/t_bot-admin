@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { Link, useLocation, Outlet } from 'react-router';
+import { Link, useLocation, Outlet, useNavigate } from 'react-router';
+import { authApi, authStorage } from '../api/auth';
 import {
   FiHome, FiUsers, FiSettings, FiLogOut, FiMenu, FiX,
   FiPlus, FiEdit, FiTrash2, FiEye, FiSearch, FiFilter,
@@ -10,6 +11,8 @@ import {
 
 const Sidebar = ({ isOpen, onClose }) => {
   const location = useLocation();
+  const navigate = useNavigate();
+  const [isSigningOut, setIsSigningOut] = useState(false);
 
   const navItems = [
     { path: '/dashboard', label: 'Overview', icon: FiHome },
@@ -19,6 +22,17 @@ const Sidebar = ({ isOpen, onClose }) => {
     { path: '/dashboard/numbers', label: 'Numbers', icon: FiHash },
     { path: '/dashboard/users', label: 'Users', icon: FiUsers },
   ];
+
+  const handleSignOut = async () => {
+    setIsSigningOut(true);
+    try {
+      await authApi.signOut();
+    } finally {
+      authStorage.clear();
+      navigate('/signin', { replace: true });
+      setIsSigningOut(false);
+    }
+  };
 
   return (
     <>
@@ -71,9 +85,9 @@ const Sidebar = ({ isOpen, onClose }) => {
                 <FiSettings className="w-4 h-4" aria-hidden="true" />
                 Settings
               </button>
-              <button className="flex-1 flex items-center justify-center gap-2 px-3 py-2 bg-red-50 border border-red-200 rounded-xl text-sm font-medium text-red-700 hover:bg-red-100 transition-colors" onClick={() => console.log('Logout clicked')}>
+              <button className="flex-1 flex items-center justify-center gap-2 px-3 py-2 bg-red-50 border border-red-200 rounded-xl text-sm font-medium text-red-700 hover:bg-red-100 transition-colors disabled:opacity-50 disabled:cursor-not-allowed" onClick={handleSignOut} disabled={isSigningOut}>
                 <FiLogOut className="w-4 h-4" aria-hidden="true" />
-                Logout
+                {isSigningOut ? 'Signing out...' : 'Logout'}
               </button>
             </div>
           </div>
@@ -85,7 +99,7 @@ const Sidebar = ({ isOpen, onClose }) => {
 
 const Header = ({ onMenuClick }) => {
   return (
-    <header className="sticky top-0 z-30 bg-white/80 backdrop-blur-sm border-b border-gray-200 lg:hidden">
+    <header className="sticky top-0 z-30 bg-white/80 backdrop-blur-sm border-b border-gray-200 lg:hidden max-h-screen">
       <div className="flex items-center justify-between h-16 px-4">
         <button onClick={onMenuClick} className="p-2 rounded-lg hover:bg-gray-100" aria-label="Open menu" aria-expanded="false">
           <FiMenu className="w-6 h-6 text-gray-600" />

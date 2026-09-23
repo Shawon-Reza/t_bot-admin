@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router';
+import { authApi, authStorage } from '../api/auth';
 
 const SignIn = () => {
   const navigate = useNavigate();
@@ -41,10 +42,18 @@ const SignIn = () => {
 
     setIsLoading(true);
     try {
-      await new Promise((resolve) => setTimeout(resolve, 1500));
-      // navigate('/dashboard');
+      const response = await authApi.signIn(formData);
+      const user = response.data?.data?.user;
+
+      if (!response.data?.success || !user) {
+        throw new Error('Invalid sign-in response');
+      }
+
+      // The access token is httpOnly and is managed by the backend cookie.
+      authStorage.setUser(user);
+      navigate('/dashboard', { replace: true });
     } catch (error) {
-      setErrors({ submit: 'Invalid credentials. Please try again.' });
+      setErrors({ submit: error.response?.data?.message || 'Invalid credentials. Please try again.' });
     } finally {
       setIsLoading(false);
     }
