@@ -72,7 +72,7 @@ const Services = () => {
   });
 
   const statusMutation = useMutation({
-    mutationFn: ({ id, status }) => serviceApi.toggleStatus(id, status),
+    mutationFn: ({ id, isActive }) => serviceApi.toggleStatus(id, isActive),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['services'] });
       console.log('Service status changed successfully');

@@ -116,11 +116,11 @@ const Layout = () => {
   const location = useLocation();
 
   return (
-    <div className="min-h-screen bg-gray-50 flex">
+    <div className="min-h-screen overflow-hidden bg-gray-50 flex">
       <Header onMenuClick={() => setSidebarOpen(true)} />
       <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
       <main className="flex-1 lg:ml-0 min-w-0">
-        <div className="">
+        <div className="max-h-screen overflow-y-auto ">
           <Outlet />
         </div>
       </main>

@@ -6,7 +6,7 @@ export const countryApi = {
   create: (data) => axiosApi.post("/api/v1/country", data),
   update: (id, data) => axiosApi.patch(`/api/v1/country/${id}`, data),
   delete: (id) => axiosApi.delete(`/api/v1/country/${id}`),
-  toggleStatus: (id, isActive) => axiosApi.patch(`/api/v1/country/${id}`, { isActive }),
+  toggleStatus: (id, isActive) => axiosApi.patch(`/api/v1/country/${id}/status`, { isActive }),
 };
 
 export const queryKeys = {
