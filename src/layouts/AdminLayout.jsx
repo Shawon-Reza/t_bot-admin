@@ -6,7 +6,7 @@ import {
   FiPlus, FiEdit, FiTrash2, FiEye, FiSearch, FiFilter,
   FiArrowLeft, FiCheck, FiXCircle, FiLock, FiUnlock,
   FiDownload, FiUpload, FiRefreshCw, FiBell, FiHelpCircle,
-  FiGlobe, FiLayers, FiHash, FiUser, FiZap
+  FiGlobe, FiLayers, FiHash, FiLink, FiUser, FiZap
 } from 'react-icons/fi';
 
 const Sidebar = ({ isOpen, onClose }) => {
@@ -18,6 +18,7 @@ const Sidebar = ({ isOpen, onClose }) => {
     { path: '/dashboard', label: 'Overview', icon: FiHome },
     { path: '/dashboard/services', label: 'Services', icon: FiSettings },
     { path: '/dashboard/countries', label: 'Countries', icon: FiGlobe },
+    { path: '/dashboard/service-countries', label: 'Service Countries', icon: FiLink },
     { path: '/dashboard/ranges', label: 'Ranges', icon: FiLayers },
     { path: '/dashboard/numbers', label: 'Numbers', icon: FiHash },
     { path: '/dashboard/users', label: 'Users', icon: FiUsers },

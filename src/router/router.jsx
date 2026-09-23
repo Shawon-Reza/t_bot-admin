@@ -9,6 +9,7 @@ import Countries from "../pages/dashboard/Countries";
 import Ranges from "../pages/dashboard/Ranges";
 import Numbers from "../pages/dashboard/Numbers";
 import Users from "../pages/dashboard/Users";
+import ServiceSpecificCountries from "../pages/dashboard/ServiceSpecificCountries";
 
 const ProtectedLayout = () => (
   authStorage.getUser() ? <Outlet /> : <Navigate to="/signin" replace />
@@ -36,6 +37,7 @@ export const router = createBrowserRouter([
           { path: "dashboard/ranges", element: <Ranges /> },
           { path: "dashboard/numbers", element: <Numbers /> },
           { path: "dashboard/users", element: <Users /> },
+          { path: "dashboard/service-countries", element: <ServiceSpecificCountries /> },
         ],
       },
     ],
