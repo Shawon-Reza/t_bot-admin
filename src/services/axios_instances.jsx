@@ -4,7 +4,7 @@ import axios from "axios";
 
 
 
-export const base_URL = "http://localhost:3000";
+export const base_URL = "http://localhost:5000";
 
 // Create an Axios instance with the base URL and default headers
 export const axiosApi = axios.create({
@@ -12,6 +12,7 @@ export const axiosApi = axios.create({
     headers: {
         "Content-Type": "application/json",
     },
+    withCredentials: true,
 });
 
 // Create another Axios instance for API requests
