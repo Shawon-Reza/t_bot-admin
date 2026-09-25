@@ -5,7 +5,7 @@ const basePath = "/api/v1/t-user";
 export const tUserApi = {
   getAll: (params = {}) => axiosApi.get(basePath, { params }),
   getById: (id) => axiosApi.get(`${basePath}/${id}`),
-  updateStatus: (id, userStatus) => axiosApi.patch(`${basePath}/${id}/status`, { userStatus }),
+  updateStatus: (id, userStatus, note) => axiosApi.patch(`${basePath}/${id}/status`, { userStatus, note }),
 };
 
 export const queryKeys = {
