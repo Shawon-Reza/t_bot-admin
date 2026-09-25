@@ -6,7 +6,7 @@ import {
   FiPlus, FiEdit, FiTrash2, FiEye, FiSearch, FiFilter,
   FiArrowLeft, FiCheck, FiXCircle, FiLock, FiUnlock,
   FiDownload, FiUpload, FiRefreshCw, FiBell, FiHelpCircle,
-  FiGlobe, FiLayers, FiHash, FiLink, FiUser, FiZap
+  FiGlobe, FiLayers, FiHash, FiLink, FiUser, FiZap, FiDollarSign
 } from 'react-icons/fi';
 
 const Sidebar = ({ isOpen, onClose }) => {
@@ -22,6 +22,7 @@ const Sidebar = ({ isOpen, onClose }) => {
     { path: '/dashboard/ranges', label: 'Ranges', icon: FiLayers },
     { path: '/dashboard/numbers', label: 'Numbers', icon: FiHash },
     { path: '/dashboard/users', label: 'Users', icon: FiUsers },
+    { path: '/dashboard/withdrawals', label: 'Withdrawals', icon: FiDollarSign },
   ];
 
   const handleSignOut = async () => {
@@ -44,7 +45,7 @@ const Sidebar = ({ isOpen, onClose }) => {
         <div className="flex flex-col h-full">
           <div className="p-5 border-b border-gray-200 flex items-center justify-between">
             <Link to="/dashboard" className="flex items-center gap-2" onClick={onClose}>
-              <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-blue-600 to-indigo-600 flex items-center justify-center">
+              <div className="w-9 h-9 rounded-xl bg-linear-to-br from-blue-600 to-indigo-600 flex items-center justify-center">
                 <FiZap className="w-5 h-5 text-white" />
               </div>
               <span className="font-bold text-xl text-gray-900">AdminPanel</span>
@@ -66,7 +67,7 @@ const Sidebar = ({ isOpen, onClose }) => {
                   className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 ${isActive ? 'bg-blue-50 text-blue-700' : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900'}`}
                   aria-current={isActive ? 'page' : undefined}
                 >
-                  <Icon className="w-5 h-5 flex-shrink-0" aria-hidden="true" />
+                  <Icon className="w-5 h-5 shrink-0" aria-hidden="true" />
                   <span>{item.label}</span>
                 </Link>
               );

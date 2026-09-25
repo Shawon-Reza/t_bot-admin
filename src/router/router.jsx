@@ -10,6 +10,7 @@ import Ranges from "../pages/dashboard/Ranges";
 import Numbers from "../pages/dashboard/Numbers";
 import Users from "../pages/dashboard/Users";
 import ServiceSpecificCountries from "../pages/dashboard/ServiceSpecificCountries";
+import Withdrawals from "../pages/dashboard/Withdrawals";
 
 const ProtectedLayout = () => (
   authStorage.getUser() ? <Outlet /> : <Navigate to="/signin" replace />
@@ -38,6 +39,7 @@ export const router = createBrowserRouter([
           { path: "dashboard/numbers", element: <Numbers /> },
           { path: "dashboard/users", element: <Users /> },
           { path: "dashboard/service-countries", element: <ServiceSpecificCountries /> },
+          { path: "dashboard/withdrawals", element: <Withdrawals /> },
         ],
       },
     ],
