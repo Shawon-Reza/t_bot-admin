@@ -32,8 +32,12 @@ const Countries = () => {
     placeholderData: (previousData) => previousData,
   });
 
+
   const countries = data?.items || [];
   const totalCount = data?.meta?.total ?? countries.length;
+
+    console.log('Countries data:', countries);
+
 
   const invalidateCountries = () => queryClient.invalidateQueries({ queryKey: ['countries'] });
   const createMutation = useMutation({ mutationFn: (country) => countryApi.create(country), onSuccess: () => { invalidateCountries(); handleCloseModal(); } });
@@ -139,7 +143,7 @@ const Countries = () => {
                 <th className="px-5 py-3.5 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Code</th>
                 <th className="px-5 py-3.5 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Dial Code</th>
                 <th className="px-5 py-3.5 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Status</th>
-                <th className="px-5 py-3.5 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Services</th>
+                <th className="px-5 py-3.5 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Ranges</th>
                 <th className="px-5 py-3.5 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Numbers</th>
                 <th className="px-5 py-3.5 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Created</th>
                 <th className="px-5 py-3.5 text-right text-xs font-semibold text-gray-500 uppercase tracking-wider">Actions</th>
@@ -168,8 +172,8 @@ const Countries = () => {
                         {country.isActive ? 'Active' : 'Inactive'}
                       </span>
                     </td>
-                    <td className="px-5 py-4 text-sm text-gray-600">—</td>
-                    <td className="px-5 py-4 text-sm text-gray-600">—</td>
+                    <td className="px-5 py-4 text-sm text-gray-600"><p className="font-medium">{country.totalRanges || 0} range{country.totalRanges === 1 ? '' : 's'}</p><p className="max-w-xs text-xs text-gray-400">{country.ranges?.length ? country.ranges.map((range) => `${range.name} (${range.totalNumbers})`).join(', ') : 'No ranges'}</p></td>
+                    <td className="px-5 py-4 text-sm text-gray-600">{Number(country.totalNumbers || 0).toLocaleString()}</td>
                     <td className="px-5 py-4 text-sm text-gray-500">{country.createdAt ? new Date(country.createdAt).toLocaleDateString() : '—'}</td>
                     <td className="px-5 py-4">
                       <div className="flex items-center justify-end gap-1">
